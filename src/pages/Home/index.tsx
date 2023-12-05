@@ -18,6 +18,7 @@ export interface ITokenData {
   id: string;
   tokenAddress: string;
   approved: boolean;
+  chainId: number;
 }
 
 const Home = () => {
@@ -96,13 +97,14 @@ const Home = () => {
             <tr>
               <th>S.no</th>
               <th>Token Address</th>
+              <th>Chain Id</th>
               <th>Actions</th>
             </tr>
           </thead>
           {!tokensData.length ? (
             <tbody>
               <tr>
-                <td colSpan={3} align="center">
+                <td colSpan={4} align="center">
                   No Data
                 </td>
               </tr>
@@ -113,6 +115,7 @@ const Home = () => {
                 <tr key={token.id}>
                   <td>{index + 1}</td>
                   <td>{token.tokenAddress}</td>
+                  <td>{token.chainId}</td>
                   <td
                     style={{
                       display: "grid",
