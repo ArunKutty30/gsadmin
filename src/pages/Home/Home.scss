@@ -1,0 +1,57 @@
+.home {
+  padding: 50px;
+  .tablewrapper {
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+
+      th {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+      }
+      td {
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+
+        button {
+          background-color: #70dca0;
+          border: none;
+          outline: none;
+          padding: 5px 15px;
+          font-size: 16px;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.request-token-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .form-input {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: flex-start;
+
+      .error {
+        color: tomato;
+        font-size: 14px;
+      }
+    }
+  }
+}
