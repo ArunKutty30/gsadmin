@@ -19,6 +19,7 @@ export interface ITokenData {
   tokenAddress: string;
   approved: boolean;
   chainId: number;
+  image: string;
 }
 
 const Home = () => {
@@ -96,6 +97,7 @@ const Home = () => {
           <thead>
             <tr>
               <th>S.no</th>
+              <th>Logo</th>
               <th>Token Address</th>
               <th>Chain Id</th>
               <th>Actions</th>
@@ -104,7 +106,7 @@ const Home = () => {
           {!tokensData.length ? (
             <tbody>
               <tr>
-                <td colSpan={4} align="center">
+                <td colSpan={5} align="center">
                   No Data
                 </td>
               </tr>
@@ -114,6 +116,9 @@ const Home = () => {
               {tokensData.map((token, index) => (
                 <tr key={token.id}>
                   <td>{index + 1}</td>
+                  <td>
+                    <img src={token.image} alt="" style={{ width: "24px", height: "24px" }} />
+                  </td>
                   <td>{token.tokenAddress}</td>
                   <td>{token.chainId}</td>
                   <td
