@@ -6,12 +6,14 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAFJ7-vwwZpJSxWcS2ujYormRMhOrwbnEo",
-  authDomain: "gs-createtoken.firebaseapp.com",
-  projectId: "gs-createtoken",
-  storageBucket: "gs-createtoken.appspot.com",
-  messagingSenderId: "110181464257",
-  appId: "1:110181464257:web:dfa255fdb84608fc59bc40",
+  apiKey: "AIzaSyA5c3CvtQEUnbrbHZER6uo9dn-zh5qnQiw",
+  authDomain: "banner-admin.firebaseapp.com",
+  databaseURL: "https://banner-admin-default-rtdb.firebaseio.com",
+  projectId: "banner-admin",
+  storageBucket: "banner-admin.appspot.com",
+  messagingSenderId: "1044181096632",
+  appId: "1:1044181096632:web:566beed4c53818d70efc4d",
+  measurementId: "G-YNPRCRDF01",
 };
 
 // Initialize Firebase
