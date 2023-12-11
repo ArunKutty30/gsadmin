@@ -6,10 +6,11 @@ import Modal from "../../components/Modal/Modal";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
-import { useChainId } from "wagmi";
+import { useChainId, useNetwork, useSwitchNetwork } from "wagmi";
 
 const initialValues = {
   tokenAddress: "",
+  chainId: "",
   image: "",
 };
 
@@ -18,6 +19,7 @@ const RequestTokenModal: React.FC<{ isOpen: boolean; handleClose: () => void }> 
   handleClose,
 }) => {
   const chainId = useChainId();
+  const { chains } = useSwitchNetwork();
 
   const handleSubmit = async (
     values: typeof initialValues,
@@ -29,7 +31,7 @@ const RequestTokenModal: React.FC<{ isOpen: boolean; handleClose: () => void }> 
         tokenAddress: values.tokenAddress,
         image: values.image,
         approved: true,
-        chainId,
+        chainId: values.chainId,
         createdAt: Timestamp.now(),
         updatedAt: Timestamp.now(),
       });
@@ -44,6 +46,7 @@ const RequestTokenModal: React.FC<{ isOpen: boolean; handleClose: () => void }> 
 
   const validationSchema = Yup.object({
     tokenAddress: Yup.string().required("This field is required"),
+    chainId: Yup.string().required("This field is required"),
     image: Yup.string().required("Choose image to proceed"),
   });
 
@@ -61,6 +64,22 @@ const RequestTokenModal: React.FC<{ isOpen: boolean; handleClose: () => void }> 
               <div className="form-input">
                 <Field name="tokenAddress" className="primary-input" placeholder="Token Address" />
                 <ErrorMessage component={"div"} name="tokenAddress" className="error" />
+              </div>
+              <div className="form-input">
+                <Field
+                  as="select"
+                  name="chainId"
+                  className="primary-input"
+                  placeholder="Token Address"
+                >
+                  <option value={""}>select chain</option>
+                  {chains.map((m) => (
+                    <option value={m.id}>
+                      {m.id} ({m.name})
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage component={"div"} name="chainId" className="error" />
               </div>
               <div className="form-input">
                 <label className="image" htmlFor="image">

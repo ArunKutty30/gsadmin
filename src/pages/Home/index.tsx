@@ -25,6 +25,7 @@ export interface ITokenData {
 const Home = () => {
   const [tokensData, setTokensData] = useState<ITokenData[]>([]);
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
   const [openModal, setOpenModal] = useState(false);
 
   const handleGetData = useCallback(async () => {
@@ -40,6 +41,7 @@ const Home = () => {
         });
 
         setTokensData(temp);
+        setFetching(false);
       },
       (error) => console.log(error)
     );
@@ -103,7 +105,15 @@ const Home = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          {!tokensData.length ? (
+          {fetching ? (
+            <tbody>
+              <tr>
+                <td colSpan={5} align="center">
+                  Loading...
+                </td>
+              </tr>
+            </tbody>
+          ) : !tokensData.length ? (
             <tbody>
               <tr>
                 <td colSpan={5} align="center">
@@ -113,37 +123,39 @@ const Home = () => {
             </tbody>
           ) : (
             <tbody>
-              {tokensData.map((token, index) => (
-                <tr key={token.id}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <img src={token.image} alt="" style={{ width: "24px", height: "24px" }} />
-                  </td>
-                  <td>{token.tokenAddress}</td>
-                  <td>{token.chainId}</td>
-                  <td
-                    style={{
-                      display: "grid",
-                      alignItems: "center",
-                      gap: "10px",
-                      gridTemplateColumns: "1fr 1fr",
-                    }}
-                  >
-                    {token.approved ? (
-                      <>
-                        <span>Approved</span>
-                      </>
-                    ) : (
-                      <button disabled={loading} onClick={() => handleApprove(token.id)}>
-                        Approve
+              {tokensData
+                .sort((a, b) => a.chainId - b.chainId)
+                .map((token, index) => (
+                  <tr key={token.id}>
+                    <td>{index + 1}</td>
+                    <td>
+                      <img src={token.image} alt="" style={{ width: "24px", height: "24px" }} />
+                    </td>
+                    <td>{token.tokenAddress}</td>
+                    <td>{token.chainId}</td>
+                    <td
+                      style={{
+                        display: "grid",
+                        alignItems: "center",
+                        gap: "10px",
+                        gridTemplateColumns: "1fr 1fr",
+                      }}
+                    >
+                      {token.approved ? (
+                        <>
+                          <span>Approved</span>
+                        </>
+                      ) : (
+                        <button disabled={loading} onClick={() => handleApprove(token.id)}>
+                          Approve
+                        </button>
+                      )}
+                      <button disabled={loading} onClick={() => handleRemove(token.id)}>
+                        Remove
                       </button>
-                    )}
-                    <button disabled={loading} onClick={() => handleRemove(token.id)}>
-                      Remove
-                    </button>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           )}
         </table>
